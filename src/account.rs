@@ -10,12 +10,12 @@ use crate::api::{API, Spot};
 // static ORDER_SIDE_BUY: &str = "BUY";
 // static ORDER_SIDE_SELL: &str = "SELL";
 
-static API_V3_ORDER: &str = "/api/v3/order";
+// static API_V3_ORDER: &str = "/api/v3/order";
 
 /// Endpoint for test orders.
 ///
 /// Orders issued to this endpoint are validated, but not sent into the matching engine.
-static API_V3_ORDER_TEST: &str = "/api/v3/order/test";
+// static API_V3_ORDER_TEST: &str = "/api/v3/order/test";
 
 #[derive(Clone)]
 pub struct Account {

@@ -14,8 +14,8 @@ use tungstenite::handshake::client::Response;
 static WEBSOCKET_URL: &str = "wss://stream.binance.com:9443/ws/";
 static WEBSOCKET_MULTI_STREAM: &str = "wss://stream.binance.com:9443/stream?streams="; // <streamName1>/<streamName2>/<streamName3>
 
-static FUTURES_WEBSOCKET_URL: &str = "wss://fstream.binance.com/ws/";
-static FUTURES_WEBSOCKET_MULTI_STREAM: &str = "wss://fstream.binance.com/stream?streams="; // <streamName1>/<streamName2>/<streamName3>
+// static FUTURES_WEBSOCKET_URL: &str = "wss://fstream.binance.com/ws/";
+// static FUTURES_WEBSOCKET_MULTI_STREAM: &str = "wss://fstream.binance.com/stream?streams="; // <streamName1>/<streamName2>/<streamName3>
 
 static OUTBOUND_ACCOUNT_INFO: &str = "outboundAccountInfo";
 static EXECUTION_REPORT: &str = "executionReport";
@@ -29,47 +29,6 @@ static PARTIAL_ORDERBOOK: &str = "lastUpdateId";
 static STREAM: &str = "stream";
 
 static DAYTICKER: &str = "24hrTicker";
-
-
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct WsEvent {
-    pub e: String,
-    #[serde(rename = "E")]
-    pub e2: i64,
-    pub ps: String,
-    pub ct: String,
-    #[serde(rename = "k")]
-    pub Data: K,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct K {
-    pub t: i64,
-    #[serde(rename = "T")]
-    pub t2: i64,
-    pub i: String,
-    pub f: i64,
-    #[serde(rename = "L")]
-    pub l: i64,
-    pub o: String,
-    pub c: String,
-    pub h: String,
-    #[serde(rename = "l")]
-    pub l2: String,
-    pub v: String,
-    pub n: i64,
-    pub x: bool,
-    pub q: String,
-    #[serde(rename = "V")]
-    pub v2: String,
-    #[serde(rename = "Q")]
-    pub q2: String,
-    #[serde(rename = "B")]
-    pub b: String,
-}
 
 
 #[allow(clippy::large_enum_variant)]
@@ -171,7 +130,6 @@ impl<'a> WebSockets<'a> {
                 self.handle_msg(&data)?;
             }
         } else if msg.find(CONTINUOUS_KLINE) != None {
-            // let continuous_kline: WsEvent = serde_json::from_str(msg)?;
             let continuous_kline: ContinuousKlineEvent = serde_json::from_str(msg)?;
             (self.handler)(WebsocketEvent::ContinuousKline(continuous_kline))?;
         } else if value["u"] != serde_json::Value::Null
