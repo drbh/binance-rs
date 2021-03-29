@@ -644,6 +644,26 @@ pub struct KlineEvent {
     pub kline: Kline,
 }
 
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct ContinuousKlineEvent {
+    #[serde(rename = "e")]
+    pub event_type: String,
+
+    #[serde(rename = "E")]
+    pub event_time: u64,
+
+    #[serde(rename = "ct")]
+    pub contract_type: String,
+
+    #[serde(rename = "ps")]
+    pub pair: String,
+
+    #[serde(rename = "k")]
+    pub kline: ContinuousKline,
+}
+
 #[derive(Debug, Clone)]
 pub struct KlineSummary {
     pub open_time: i64,
@@ -707,6 +727,58 @@ pub struct Kline {
 
     #[serde(rename = "n")]
     pub number_of_trades: i32,
+
+    #[serde(rename = "x")]
+    pub is_final_bar: bool,
+
+    #[serde(rename = "q")]
+    pub quote_volume: String,
+
+    #[serde(rename = "V")]
+    pub active_buy_volume: String,
+
+    #[serde(rename = "Q")]
+    pub active_volume_buy_quote: String,
+
+    #[serde(skip, rename = "B")]
+    pub ignore_me: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct ContinuousKline {
+    #[serde(rename = "t")]
+    pub start_time: i64,
+
+    #[serde(rename = "T")]
+    pub end_time: i64,
+
+    #[serde(rename = "i")]
+    pub interval: String,
+
+    #[serde(rename = "f")]
+    pub first_trade_id: i64,
+
+    #[serde(rename = "L")]
+    pub last_trade_id: i64,
+
+    #[serde(rename = "o")]
+    pub open: String,
+
+    #[serde(rename = "c")]
+    pub close: String,
+
+    #[serde(rename = "h")]
+    pub high: String,
+
+    #[serde(rename = "l")]
+    pub low: String,
+
+    #[serde(rename = "v")]
+    pub volume: String,
+
+    #[serde(rename = "n")]
+    pub number_of_trades: i64,
 
     #[serde(rename = "x")]
     pub is_final_bar: bool,
